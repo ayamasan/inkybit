@@ -19,19 +19,16 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function ()
             inkybit.setPixel(開始列 + カウンター * 4, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 8
         }
-        開始列 += 1
         if (_10進数 >= 4) {
-            inkybit.setPixel(開始列 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 1 + カウンター * 4, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 4
         }
-        開始列 += 1
         if (_10進数 >= 2) {
-            inkybit.setPixel(開始列 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 2 + カウンター * 4, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 2
         }
-        開始列 += 1
         if (_10進数 >= 1) {
-            inkybit.setPixel(開始列 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 3 + カウンター * 4, 行, inkybit.Color.Black)
         }
     }
 })
