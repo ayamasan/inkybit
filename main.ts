@@ -9,33 +9,40 @@ input.onButtonPressed(Button.A, function () {
 })
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function () {
     受信データ = bluetooth.uartReadUntil(serial.delimiters(Delimiters.Fullstop))
-    行 = parseFloat(受信データ.substr(0, 3))
-    開始列 = parseFloat(受信データ.substr(3, 3))
-    データ数 = parseFloat(受信データ.substr(6, 2))
-    データカウント = 0
-    for (let カウンター = 0; カウンター <= 11; カウンター++) {
-        _4倍カウンター = カウンター * 4
-        データ = 受信データ.charAt(カウンター + 8)
-        _16進数を10進数に(データ)
-        if (_10進数 >= 8 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Black)
-            _10進数 = _10進数 - 8
+    if (受信データ == "DSP") {
+        inkybit.show()
+    } else if (受信データ == "CLR") {
+        inkybit.clear()
+        inkybit.show()
+    } else {
+        行 = parseFloat(受信データ.substr(0, 3))
+        開始列 = parseFloat(受信データ.substr(3, 3))
+        データ数 = parseFloat(受信データ.substr(6, 2))
+        データカウント = 0
+        for (let カウンター = 0; カウンター <= 11; カウンター++) {
+            _4倍カウンター = カウンター * 4
+            データ = 受信データ.charAt(カウンター + 8)
+            _16進数を10進数に(データ)
+            if (_10進数 >= 8 && データカウント < データ数) {
+                inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Black)
+                _10進数 = _10進数 - 8
+            }
+            データカウント += 1
+            if (_10進数 >= 4 && データカウント < データ数) {
+                inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Black)
+                _10進数 = _10進数 - 4
+            }
+            データカウント += 1
+            if (_10進数 >= 2 && データカウント < データ数) {
+                inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Black)
+                _10進数 = _10進数 - 2
+            }
+            データカウント += 1
+            if (_10進数 >= 1 && データカウント < データ数) {
+                inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Black)
+            }
+            データカウント += 1
         }
-        データカウント += 1
-        if (_10進数 >= 4 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Black)
-            _10進数 = _10進数 - 4
-        }
-        データカウント += 1
-        if (_10進数 >= 2 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Black)
-            _10進数 = _10進数 - 2
-        }
-        データカウント += 1
-        if (_10進数 >= 1 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Black)
-        }
-        データカウント += 1
     }
 })
 input.onButtonPressed(Button.B, function () {
