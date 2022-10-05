@@ -15,39 +15,79 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function ()
         inkybit.clear()
         inkybit.show()
     } else {
-        inkybit.drawRectangle(
-        0,
-        0,
-        inkybit.width(),
-        inkybit.height(),
-        inkybit.Color.Accent,
-        true
-        )
         行 = parseFloat(受信データ.substr(0, 3))
         開始列 = parseFloat(受信データ.substr(3, 3))
         データ数 = parseFloat(受信データ.substr(6, 2))
         データカウント = 0
+        if (行 >= 600) {
+            行 = 行 - 600
+            白も描画 = 0
+            赤描画 = 1
+        } else if (行 >= 400) {
+            行 = 行 - 400
+            白も描画 = 0
+            赤描画 = 0
+        } else if (行 >= 200) {
+            行 = 行 - 200
+            白も描画 = 1
+            赤描画 = 1
+        } else {
+            白も描画 = 1
+            赤描画 = 0
+        }
         for (let カウンター = 0; カウンター <= 11; カウンター++) {
             _4倍カウンター = カウンター * 4
             データ = 受信データ.charAt(カウンター + 8)
             _16進数を10進数に(データ)
-            if (_10進数 >= 8 && データカウント < データ数) {
-                inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Black)
-                _10進数 = _10進数 - 8
+            if (データカウント < データ数) {
+                if (_10進数 >= 8) {
+                    if (赤描画 == 0) {
+                        inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Black)
+                    } else {
+                        inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Accent)
+                    }
+                    _10進数 = _10進数 - 8
+                } else if (白も描画 == 1) {
+                    inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.White)
+                }
             }
             データカウント += 1
-            if (_10進数 >= 4 && データカウント < データ数) {
-                inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Black)
-                _10進数 = _10進数 - 4
+            if (データカウント < データ数) {
+                if (_10進数 >= 4) {
+                    if (赤描画 == 0) {
+                        inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Black)
+                    } else {
+                        inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Accent)
+                    }
+                    _10進数 = _10進数 - 4
+                } else if (白も描画 == 1) {
+                    inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.White)
+                }
             }
             データカウント += 1
-            if (_10進数 >= 2 && データカウント < データ数) {
-                inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Black)
-                _10進数 = _10進数 - 2
+            if (データカウント < データ数) {
+                if (_10進数 >= 2) {
+                    if (赤描画 == 0) {
+                        inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Black)
+                    } else {
+                        inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Accent)
+                    }
+                    _10進数 = _10進数 - 2
+                } else if (白も描画 == 1) {
+                    inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.White)
+                }
             }
             データカウント += 1
-            if (_10進数 >= 1 && データカウント < データ数) {
-                inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Black)
+            if (データカウント < データ数) {
+                if (_10進数 >= 1) {
+                    if (赤描画 == 0) {
+                        inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Black)
+                    } else {
+                        inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Accent)
+                    }
+                } else if (白も描画 == 1) {
+                    inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.White)
+                }
             }
             データカウント += 1
         }
@@ -78,6 +118,8 @@ function _16進数を10進数に (テキスト: string) {
 let _10進数 = 0
 let データ = ""
 let _4倍カウンター = 0
+let 赤描画 = 0
+let 白も描画 = 0
 let データカウント = 0
 let データ数 = 0
 let 開始列 = 0
