@@ -14,25 +14,26 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function ()
     データ数 = parseFloat(受信データ.substr(6, 2))
     データカウント = 0
     for (let カウンター = 0; カウンター <= 11; カウンター++) {
+        _4倍カウンター = カウンター * 4
         データ = 受信データ.charAt(カウンター + 8)
         _16進数を10進数に(データ)
         if (_10進数 >= 8 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + _4倍カウンター, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 8
         }
         データカウント += 1
         if (_10進数 >= 4 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 1 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 1 + _4倍カウンター, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 4
         }
         データカウント += 1
         if (_10進数 >= 2 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 2 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 2 + _4倍カウンター, 行, inkybit.Color.Black)
             _10進数 = _10進数 - 2
         }
         データカウント += 1
         if (_10進数 >= 1 && データカウント < データ数) {
-            inkybit.setPixel(開始列 + 3 + カウンター * 4, 行, inkybit.Color.Black)
+            inkybit.setPixel(開始列 + 3 + _4倍カウンター, 行, inkybit.Color.Black)
         }
         データカウント += 1
     }
@@ -61,6 +62,7 @@ function _16進数を10進数に (テキスト: string) {
 }
 let _10進数 = 0
 let データ = ""
+let _4倍カウンター = 0
 let データカウント = 0
 let データ数 = 0
 let 開始列 = 0
