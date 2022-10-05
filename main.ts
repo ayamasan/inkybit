@@ -14,6 +14,36 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function ()
     } else if (受信データ == "CLR") {
         inkybit.clear()
         inkybit.show()
+    } else if (受信データ == "WHI") {
+        inkybit.drawRectangle(
+        0,
+        0,
+        inkybit.width(),
+        inkybit.height(),
+        inkybit.Color.White,
+        true
+        )
+        inkybit.show()
+    } else if (受信データ == "BLK") {
+        inkybit.drawRectangle(
+        0,
+        0,
+        inkybit.width(),
+        inkybit.height(),
+        inkybit.Color.Black,
+        true
+        )
+        inkybit.show()
+    } else if (受信データ == "RED") {
+        inkybit.drawRectangle(
+        0,
+        0,
+        inkybit.width(),
+        inkybit.height(),
+        inkybit.Color.Accent,
+        true
+        )
+        inkybit.show()
     } else {
         行 = parseFloat(受信データ.substr(0, 3))
         開始列 = parseFloat(受信データ.substr(3, 3))
