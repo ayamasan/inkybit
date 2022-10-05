@@ -15,6 +15,7 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Fullstop), function ()
         inkybit.clear()
         inkybit.show()
     } else {
+        inkybit.clear()
         行 = parseFloat(受信データ.substr(0, 3))
         開始列 = parseFloat(受信データ.substr(3, 3))
         データ数 = parseFloat(受信データ.substr(6, 2))
